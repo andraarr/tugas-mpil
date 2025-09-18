@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>DOM JS Sederhana</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { padding: 6px; }
+    li { margin: 5px 0; }
+    .badge { background: #eef; padding: 3px 6px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+
+  <h2>Contoh DOM Sederhana</h2>
+
+  <input id="inputText" type="text" placeholder="Tulis sesuatu">
+  <button id="btnTambah">Tambah</button>
+  <p>Jumlah item: <span id="jumlah" class="badge">0</span></p>
+
+  <ul id="list"></ul>
+
+  <script>
+    const input = document.getElementById('inputText');
+    const btnTambah = document.getElementById('btnTambah');
+    const list = document.getElementById('list');
+    const jumlah = document.getElementById('jumlah');
+
+    function updateJumlah() {
+      jumlah.textContent = list.children.length;
+    }
+
+    btnTambah.addEventListener('click', () => {
+      if (input.value.trim() === '') return;
+
+      // Buat elemen li baru
+      const li = document.createElement('li');
+      li.textContent = input.value;
+
+      // Tambahkan tombol hapus
+      const btnHapus = document.createElement('button');
+      btnHapus.textContent = 'Hapus';
+      btnHapus.style.marginLeft = '10px';
+      btnHapus.addEventListener('click', () => {
+        li.remove();
+        updateJumlah();
+      });
+
+      li.appendChild(btnHapus);
+      list.appendChild(li);
+
+      input.value = '';
+      updateJumlah();
+    });
+  </script>
+
+</body>
+</html>
